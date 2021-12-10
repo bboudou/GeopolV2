@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Conges;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,13 +24,30 @@ class UtilisateurController extends AbstractController
         {
             return $this->redirectToRoute('login');
         }
-        if ($this->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('admin');
-        }
+        $nom=$utilisateur->getNom();
+        $prenom= $utilisateur->getPrenom();
+        $acquis=$utilisateur->getAcquis();
         return $this->render('utilisateur/index.html.twig', [
-            'controller_name' => 'UtilisateurController',
+            'nom' => $nom,
+            'prenom' =>$prenom,
+            'conges' => $acquis,
         ]);
     }
+    /**
+     * @Route("/Conges", name="conges")
+     */
+    public function conges(): Response
+    {
+
+
+        return $this->render('utilisateur/conges.html.twig');
+    }
+
+
+
+
+
+    //Pour ajouter un utilisateur seulement accessible avec le lien
     /**
      * @Route("/new", name="utilisateur_new", methods={"GET","POST"})
      */
@@ -52,12 +70,15 @@ class UtilisateurController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $utilisateur->setPassword($passwordEncoder->encodePassword($utilisateur, $utilisateur->getPassword()));
             /* uniquement pour créer un admin*/
-            $role = ['ROLE_ADMIN'];
+            $role = ['ROLE_USER'];
             $utilisateur->setRoles($role);
+            $utilisateur->setNom('TOTO');
+            $utilisateur->setPrenom('Titi');
+            $utilisateur->setAcquis(2.5);
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('conges');
         }
 
         return $this->render('utilisateur/new.html.twig', [

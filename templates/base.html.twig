@@ -26,19 +26,18 @@
 <nav class="navbar sticky-top navbar-light " style="background-color: #e3f2fd;">
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-secondary" href="{{ path('admin') }}">liste des utilisateurs</a>
             <a class="btn btn-secondary" href="{{ path('validation') }}">Validation congés</a>
         {% else %}
             <a class="navbar-brand" href="{{ path('login') }}">Accueil</a>
-            <a class="btn btn-primary" href="{{ path('login') }}">Demande Congés</a>
+            <a class="btn btn-primary" href="{{ path('conges') }}">Demande Congés</a>
         {% endif %}
-
         <div>
-            Bonjour {{ app.user.username }}
             <a class="btn btn-sm btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
 </nav>
-<div class="container">{% block body %}{% endblock %}</div>
+<div class="container">{% block body %} {% endblock %}</div>
 
 </body>
 </html>

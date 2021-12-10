@@ -6,7 +6,6 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-//ajout du use pour utiliser le type input password de Symfony
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UtilisateurType extends AbstractType
