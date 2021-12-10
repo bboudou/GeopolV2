@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Geopol Admin{% endblock %}
 
 {% block body %}
-<style>
+    {#  <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+</style>#}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+    <h1>Liste des utilisateurs : </h1>
     <ul>
-        <li>Your controller at <code><a href="{{ '/home/internet/GeopolV2/GeopolV2/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/internet/GeopolV2/GeopolV2/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
+        {% for user in utilisateurs %}
+            <li>{{ user.username|e }}</li>
+        {% endfor %}
     </ul>
-</div>
 {% endblock %}

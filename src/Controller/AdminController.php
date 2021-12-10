@@ -15,24 +15,24 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function index(): Response
+    public function index(UtilisateurRepository $utilisateurRepository): Response
     {
         $utilisateur = $this->getUser();
         if(!$utilisateur)
         {
             return $this->redirectToRoute('login');
         }
+        $utilisateurs = $utilisateurRepository->findAll();
         return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+            'utilisateurs' => $utilisateurs,
         ]);
     }
     /**
      * @Route("/validation", name="validation")
      */
-    public function validation(UtilisateurRepository $utilisateurRepository) : Response
+    public function validation() : Response
     {
-        $utilisateurs = $utilisateurRepository->findAll();
-        var_dump();
+
         return $this->render('admin/validation.html.twig');
     }
 }
