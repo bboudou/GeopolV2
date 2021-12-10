@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
+                   and uncomment the following Encore helpers to start using Symfony UX #}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<header class="header">
+    <nav class="navbar sticky-top navbar-light " style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="/src/Vues/images/logo.jpeg" alt="logo du site" width="40" height="34" class="d-inline-block align-text-top"></a>
+            <h1>GEOPOL</h1>
+        </div>
+    </nav>
+</header>
+<body>
+<nav class="navbar sticky-top navbar-light " style="background-color: #e3f2fd;">
+    {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-secondary" href="{{ path('validation') }}">Validation congés</a>
+        {% else %}
+            <a class="navbar-brand" href="{{ path('login') }}">Accueil</a>
+            <a class="btn btn-primary" href="{{ path('login') }}">Demande Congés</a>
+        {% endif %}
+
+        <div>
+            Bonjour {{ app.user.username }}
+            <a class="btn btn-sm btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+        </div>
+    {% endif %}
+</nav>
+<div class="container">{% block body %}{% endblock %}</div>
+
+</body>
 </html>
