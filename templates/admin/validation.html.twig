@@ -3,9 +3,41 @@
 {% block title %}Validation Congés{% endblock %}
 {% block body %}
     <h1>Liste des demandes en attentes : </h1>
-    <ul>
+    <table>
+        <tr>
+            <th>id du congé</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Est exceptionel</th>
+            <th>idutilisateur</th>
+            <th>validé</th>
+        </tr>
         {% for conge in conges %}
-            <li>{{ conge.idUtilisateur|e }}</li>
+            {% if (conge.valide==false) %}
+            <tr>
+                <td>{{ conge.id }}</td>
+                <td>{{ conge.dateDebut|date("m/d/Y") }}</td>
+                <td>{{ conge.dateFin|date("m/d/Y") }}</td>
+                <td>{% if(conge.exceptionel) %}Oui{% else %}Non{% endif %}</td>
+                <td>{{ conge.idUtilisateur }}</td>
+                <td><a href= "valideconge?idget={{ conge.id }}"><input type="button" value="Validé" class="btn btn-outline-dark" id="bouton-tableau"></a></td>
+            </tr>
+            {% endif %}
         {% endfor %}
-    </ul>
+    </table>
+    <style>
+        table{
+            margin : auto;
+            border-collapse:collapse;
+            border:2px solid rgb(0, 204, 255) ;
+            width:90%;
+        }
+        th{
+            border:2px solid black;
+        }
+        td{
+            border:1px solid black;
+            text-align: center;
+        }
+    </style>
 {% endblock %}

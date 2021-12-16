@@ -28,11 +28,6 @@ class Conges
     private $dateFin;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $type = [];
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $idUtilisateur;
@@ -46,6 +41,11 @@ class Conges
      * @ORM\Column(type="boolean")
      */
     private $valide;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $exceptionel;
 
     public function getId(): ?int
     {
@@ -72,18 +72,6 @@ class Conges
     public function setDateFin(\DateTimeInterface $dateFin): self
     {
         $this->dateFin = $dateFin;
-
-        return $this;
-    }
-
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
-
-    public function setType(?array $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -120,6 +108,18 @@ class Conges
     public function setValide(bool $valide): self
     {
         $this->valide = $valide;
+
+        return $this;
+    }
+
+    public function getExceptionel(): ?bool
+    {
+        return $this->exceptionel;
+    }
+
+    public function setExceptionel(bool $exceptionel): self
+    {
+        $this->exceptionel = $exceptionel;
 
         return $this;
     }

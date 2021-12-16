@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 /**
+ * @IsGranted("ROLE_ADMIN")
+ */
+/**
  * @Route("/admin" )
  */
 class AdminController extends AbstractController
@@ -35,5 +38,18 @@ class AdminController extends AbstractController
     {
         $conges=$congesRepository->findAll();
         return $this->render('admin/validation.html.twig',['conges'=>$conges]);
+    }
+    /**
+     * @Route("/valideconge", name="valideconge")
+     */
+    public function validations(CongesRepository $congesRepository) : Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $conge=$congesRepository->find($_GET['idget']);
+        $conge->setValide(true);
+        $entityManager->persist($conge);
+        $entityManager->flush();
+        $conges=$congesRepository->findAll();
+        return $this->redirectToRoute('validation');
     }
 }

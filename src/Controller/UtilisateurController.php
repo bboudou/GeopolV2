@@ -47,7 +47,7 @@ class UtilisateurController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $conges->setIdUtilisateur($utilisateur->getId());
             $conges->setValide(false);
-            $conges->setType(['exceptionel']);
+            $conges->setExceptionel(false);
             $entityManager->persist($conges);
             $entityManager->flush();
         }
