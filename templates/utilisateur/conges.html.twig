@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1 class="h3 mb-3 font-weight-normal">Veuillez remplir le formulaire </h1>
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
     {{ form_start(form, {'attr': {'id': 'new_conges'}}) }}
         <label for="inputDateDebut">Date de début</label>
         {{ form_widget(form.dateDebut) }}
@@ -12,7 +13,7 @@
         <label for="inputDJ">Nombre de demi-journée</label>
         {{ form_widget(form.nbDemiJ) }}
         <style>
-            #boutton{margin: 10px}
+            #boutton{display: block; margin: 10px}
         </style>
         <button class="btn btn-lg btn-primary" type="submit" id="boutton">{{ button_label|default('Envoyer') }}</button>
     {{ form_end(form) }}

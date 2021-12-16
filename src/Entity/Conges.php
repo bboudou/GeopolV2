@@ -28,9 +28,9 @@ class Conges
     private $dateFin;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $type = [];
+    private $exceptionel;
 
     /**
      * @ORM\Column(type="integer")
@@ -76,14 +76,14 @@ class Conges
         return $this;
     }
 
-    public function getType(): ?array
+    public function getExceptionel(): ?bool
     {
-        return $this->type;
+        return $this->exceptioenl;
     }
 
-    public function setType(?array $type): self
+    public function setExceptionel(?bool $exceptionel): self
     {
-        $this->type = $type;
+        $this->exceptionel = $exceptionel;
 
         return $this;
     }
