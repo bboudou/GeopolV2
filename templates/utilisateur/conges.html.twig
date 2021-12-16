@@ -3,19 +3,17 @@
 {% block title %}Demande Congés{% endblock %}
 
 {% block body %}
-    <form method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Veuillez remplir le formulaire </h1>
+    <h1 class="h3 mb-3 font-weight-normal">Veuillez remplir le formulaire </h1>
+    {{ form_start(form, {'attr': {'id': 'new_conges'}}) }}
         <label for="inputDateDebut">Date de début</label>
-        <input type="date" name="dateDebut" id="inputDateDebut" class="form-control" required autofocus>
+        {{ form_widget(form.dateDebut) }}
         <label for="inputDateFin">Date de fin</label>
-        <input type="date" name="dateFin" id="inputDateFin" class="form-control" required autofocus>
+        {{ form_widget(form.dateFin) }}
         <label for="inputDJ">Nombre de demi-journée</label>
-        <input type="number" name="nbDemiJournee" id="inputDJ" required autofocus>
+        {{ form_widget(form.nbDemiJ) }}
         <style>
             #boutton{margin: 10px}
         </style>
-        <button class="btn btn-lg btn-primary" type="submit" id="boutton">
-            Envoyer
-        </button>
-    </form>
+        <button class="btn btn-lg btn-primary" type="submit" id="boutton">{{ button_label|default('Envoyer') }}</button>
+    {{ form_end(form) }}
 {% endblock %}

@@ -3,4 +3,9 @@
 {% block title %}Validation Congés{% endblock %}
 {% block body %}
     <h1>Liste des demandes en attentes : </h1>
+    <ul>
+        {% for conge in conges %}
+            <li>{{ conge.idUtilisateur|e }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

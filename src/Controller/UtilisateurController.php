@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Conges;
 use App\Entity\Utilisateur;
+use App\Form\CongesType;
 use App\Form\UtilisateurType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,11 +37,21 @@ class UtilisateurController extends AbstractController
     /**
      * @Route("/Conges", name="conges")
      */
-    public function conges(): Response
+    public function conges(Request $request): Response
     {
-
-
-        return $this->render('utilisateur/conges.html.twig');
+        $utilisateur=$this->getUser();
+        $conges = new Conges();
+        $form = $this->createForm(CongesType::class, $conges);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $conges->setIdUtilisateur($utilisateur->getId());
+            $conges->setValide(false);
+            $conges->setType(['exceptionel']);
+            $entityManager->persist($conges);
+            $entityManager->flush();
+        }
+        return $this->render('utilisateur/conges.html.twig', ['form' => $form->createView()]);
     }
 
 
